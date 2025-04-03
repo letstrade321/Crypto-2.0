@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# CryptoFlip 2.0
 
-## Project info
+A decentralized P2P betting and liquidity platform on Solana.
 
-**URL**: https://lovable.dev/projects/339bf26a-feb2-46c1-96e3-7062f751e1f6
+## Project Overview
 
-## How can I edit this code?
+CryptoFlip 2.0 is a modern betting platform that leverages the power of Solana blockchain to provide:
+- Decentralized P2P betting
+- Liquidity provision
+- Real-time odds flipping
+- Secure wallet integration
+- Modern, responsive UI
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/339bf26a-feb2-46c1-96e3-7062f751e1f6) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technologies Used
 
 This project is built with:
-
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Solana Web3.js
+- Wallet Adapter
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/339bf26a-feb2-46c1-96e3-7062f751e1f6) and click on Share -> Publish.
+### Prerequisites
+- Node.js & npm - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Solana wallet (Phantom, Solflare, etc.)
 
-## Can I connect a custom domain to my Lovable project?
+### Installation
 
-Yes it is!
+```sh
+# Clone the repository
+git clone https://github.com/letstrade321/Crypto-2.0.git
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Navigate to the project directory
+cd Crypto-2.0
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+## Development
+
+The project uses Vite for fast development and building. Key commands:
+
+```sh
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Deployment
+
+The project can be deployed on Vercel:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Configure environment variables if needed
+4. Deploy!
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
