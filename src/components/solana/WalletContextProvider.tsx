@@ -12,7 +12,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const WalletContextProvider: FC<Props> = ({ children }) => {
+const WalletContextProvider: FC<Props> = ({ children }) => {
   // Can be set to 'devnet', 'testnet', or 'mainnet-beta'
   const network = WalletAdapterNetwork.Devnet;
 
