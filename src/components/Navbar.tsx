@@ -1,8 +1,8 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import WalletButton from "@/components/solana/WalletButton";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,7 +34,7 @@ const Navbar = () => {
           <Link to="/community" className="text-sm font-medium text-white hover:text-crypto-purple transition-colors">
             Community
           </Link>
-          <WalletButton />
+          <Button className="btn-gradient shadow-neon-glow">Connect Wallet</Button>
         </div>
 
         {/* Mobile Navigation Button */}
@@ -89,7 +89,9 @@ const Navbar = () => {
             >
               Community
             </Link>
-            <WalletButton />
+            <Button className="btn-gradient w-full shadow-neon-glow">
+              Connect Wallet
+            </Button>
           </div>
         </div>
       )}

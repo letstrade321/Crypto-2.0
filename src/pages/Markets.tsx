@@ -1,152 +1,213 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { ArrowUpDown, TrendingUp, Trophy } from "lucide-react";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BettingContract from "@/components/solana/BettingContract";
-
-// Sample market data
-const markets = [
-  {
-    id: 1,
-    category: "crypto",
-    title: "BTC Price Movement",
-    description: "Bitcoin price movement in the next 12 hours",
-    odds: { up: 2.1, down: 1.9 },
-    volume: "125.5K",
-    endTime: "12h",
-  },
-  {
-    id: 2,
-    category: "crypto",
-    title: "SOL Price Movement",
-    description: "Solana price movement in the next 12 hours",
-    odds: { up: 1.8, down: 2.2 },
-    volume: "75.2K",
-    endTime: "12h",
-  },
-  {
-    id: 3,
-    category: "sports",
-    title: "Lakers vs Warriors",
-    description: "NBA Regular Season Game Winner",
-    odds: { home: 1.95, away: 1.85 },
-    volume: "250K",
-    endTime: "2h",
-  },
-  {
-    id: 4,
-    category: "sports",
-    title: "Man City vs Arsenal",
-    description: "Premier League Match Winner",
-    odds: { home: 1.75, away: 2.15, draw: 3.5 },
-    volume: "180K",
-    endTime: "1h",
-  },
-];
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TrendingUp, TrendingDown, Plus, DollarSign, Clock, Users } from "lucide-react";
 
 const Markets = () => {
-  const [selectedMarket, setSelectedMarket] = useState(markets[0]);
+  const cryptoMarkets = [
+    {
+      name: "BTC/USD Flip",
+      description: "Bet on Bitcoin price movement in the next 24 hours",
+      up: 1.95,
+      down: 2.05,
+      liquidity: "$24.5K",
+      participants: 127,
+      timeLeft: "23:45:12",
+      status: "live"
+    },
+    {
+      name: "ETH/BTC Flip",
+      description: "Will Ethereum outperform Bitcoin this week?",
+      up: 2.10,
+      down: 1.90,
+      liquidity: "$18.2K",
+      participants: 89,
+      timeLeft: "4:12:30:45",
+      status: "trending"
+    },
+    {
+      name: "SOL/USD Flip",
+      description: "Solana price movement in the next 12 hours",
+      up: 2.25,
+      down: 1.75,
+      liquidity: "$9.7K",
+      participants: 64,
+      timeLeft: "11:52:30",
+      status: "hot"
+    }
+  ];
+
+  const eventsMarkets = [
+    {
+      name: "Champions League Final",
+      description: "Which team will win the next Champions League Final?",
+      up: 1.85,
+      down: 2.15,
+      liquidity: "$32.8K",
+      participants: 214,
+      timeLeft: "12:02:45:10",
+      status: "upcoming"
+    },
+    {
+      name: "Presidential Election",
+      description: "Prediction market for the next US presidential election",
+      up: 1.95,
+      down: 1.95,
+      liquidity: "$156.2K",
+      participants: 780,
+      timeLeft: "85:14:22:05",
+      status: "popular"
+    }
+  ];
+
+  const customMarkets = [
+    {
+      name: "NFT Floor Price",
+      description: "Will Bored Ape floor price increase by end of month?",
+      up: 2.35,
+      down: 1.65,
+      liquidity: "$5.3K",
+      participants: 42,
+      timeLeft: "16:04:15:22",
+      status: "new"
+    }
+  ];
+
+  const renderMarketCard = (market: any) => (
+    <Card className="bg-card/50 backdrop-blur-sm border-white/10 hover:border-white/20 transition-all">
+      <CardHeader className="pb-2">
+        <div className="flex justify-between items-center">
+          <CardTitle className="text-white">{market.name}</CardTitle>
+          {market.status === "live" && (
+            <span className="text-xs px-2 py-0.5 bg-crypto-blue/20 text-crypto-blue rounded-full">Live</span>
+          )}
+          {market.status === "trending" && (
+            <span className="text-xs px-2 py-0.5 bg-crypto-purple/20 text-crypto-purple rounded-full">Trending</span>
+          )}
+          {market.status === "hot" && (
+            <span className="text-xs px-2 py-0.5 bg-crypto-pink/20 text-crypto-pink rounded-full">Hot</span>
+          )}
+          {market.status === "upcoming" && (
+            <span className="text-xs px-2 py-0.5 bg-green-500/20 text-green-500 rounded-full">Upcoming</span>
+          )}
+          {market.status === "popular" && (
+            <span className="text-xs px-2 py-0.5 bg-yellow-500/20 text-yellow-500 rounded-full">Popular</span>
+          )}
+          {market.status === "new" && (
+            <span className="text-xs px-2 py-0.5 bg-orange-500/20 text-orange-500 rounded-full">New</span>
+          )}
+        </div>
+        <p className="text-sm text-muted-foreground mt-1">{market.description}</p>
+      </CardHeader>
+      <CardContent className="pt-2">
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div className="bg-card rounded-lg p-3 hover:bg-card/80 transition-all cursor-pointer border border-white/5">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <TrendingUp className="h-4 w-4 text-green-400 mr-2" />
+                <span className="font-medium text-white">Up</span>
+              </div>
+              <span className="text-green-400 font-semibold">x{market.up}</span>
+            </div>
+          </div>
+          <div className="bg-card rounded-lg p-3 hover:bg-card/80 transition-all cursor-pointer border border-white/5">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
+                <TrendingDown className="h-4 w-4 text-red-400 mr-2" />
+                <span className="font-medium text-white">Down</span>
+              </div>
+              <span className="text-red-400 font-semibold">x{market.down}</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-between text-xs text-muted-foreground mb-2">
+          <div className="flex items-center">
+            <DollarSign className="h-3 w-3 mr-1" />
+            <span>{market.liquidity}</span>
+          </div>
+          <div className="flex items-center">
+            <Users className="h-3 w-3 mr-1" />
+            <span>{market.participants} bettors</span>
+          </div>
+          <div className="flex items-center">
+            <Clock className="h-3 w-3 mr-1" />
+            <span>{market.timeLeft}</span>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button className="w-full btn-gradient">Place Bet</Button>
+      </CardFooter>
+    </Card>
+  );
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="container mx-auto px-4 py-24">
-        <div className="flex flex-col gap-8">
-          <div>
-            <h1 className="text-4xl font-bold mb-4">Betting Markets</h1>
+      <div className="pt-28 pb-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-gradient">Betting Markets</h1>
             <p className="text-muted-foreground">
-              Choose from a variety of markets to place your bets. All bets are secured by smart
-              contracts on the Solana blockchain.
+              Browse our live betting markets or create your own. All bets are settled instantly via smart contracts.
             </p>
           </div>
 
-          <Tabs defaultValue="all" className="w-full">
-            <TabsList>
-              <TabsTrigger value="all">All Markets</TabsTrigger>
-              <TabsTrigger value="crypto">Crypto</TabsTrigger>
-              <TabsTrigger value="sports">Sports</TabsTrigger>
-              <TabsTrigger value="viral">Viral Events</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="all" className="mt-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                {markets.map((market) => (
-                  <Card
-                    key={market.id}
-                    className={`p-6 cursor-pointer transition-all hover:border-primary ${
-                      selectedMarket.id === market.id ? "border-primary" : ""
-                    }`}
-                    onClick={() => setSelectedMarket(market)}
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2">{market.title}</h3>
-                        <p className="text-sm text-muted-foreground">{market.description}</p>
-                      </div>
-                      <Badge variant="outline" className="bg-primary/10">
-                        {market.category.toUpperCase()}
-                      </Badge>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2">
-                          <TrendingUp className="w-4 h-4 text-green-500" />
-                          <span className="text-sm font-medium">${market.volume}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Trophy className="w-4 h-4 text-yellow-500" />
-                          <span className="text-sm font-medium">
-                            {Object.values(market.odds)
-                              .map((odd) => odd.toFixed(2))
-                              .join(" / ")}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <ArrowUpDown className="w-4 h-4" />
-                        <span className="text-sm">{market.endTime}</span>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-
-          {/* Selected Market Details & Betting Interface */}
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-6">Place Your Bet</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-4">{selectedMarket.title}</h3>
-                <p className="text-muted-foreground mb-6">{selectedMarket.description}</p>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {Object.entries(selectedMarket.odds).map(([position, odd]) => (
-                    <Button
-                      key={position}
-                      variant="outline"
-                      className="w-full"
-                    >
-                      {position.toUpperCase()}: {odd.toFixed(2)}x
-                    </Button>
+          <div className="max-w-6xl mx-auto">
+            <Tabs defaultValue="crypto" className="mb-8">
+              <TabsList className="w-full justify-start bg-card/50">
+                <TabsTrigger value="crypto">Crypto Flips</TabsTrigger>
+                <TabsTrigger value="events">Events</TabsTrigger>
+                <TabsTrigger value="custom">Custom</TabsTrigger>
+              </TabsList>
+              <TabsContent value="crypto" className="mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {cryptoMarkets.map((market, index) => (
+                    <div key={index}>{renderMarketCard(market)}</div>
                   ))}
                 </div>
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>Volume: ${selectedMarket.volume}</span>
-                  <span>Ends in: {selectedMarket.endTime}</span>
+              </TabsContent>
+              <TabsContent value="events" className="mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {eventsMarkets.map((market, index) => (
+                    <div key={index}>{renderMarketCard(market)}</div>
+                  ))}
                 </div>
-              </Card>
-              
-              <BettingContract />
+              </TabsContent>
+              <TabsContent value="custom" className="mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {customMarkets.map((market, index) => (
+                    <div key={index}>{renderMarketCard(market)}</div>
+                  ))}
+                  <Card className="bg-card/30 border-dashed border-white/20 flex flex-col items-center justify-center p-8 hover:bg-card/50 transition-all cursor-pointer">
+                    <Plus className="h-12 w-12 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium text-white mb-2">Create Your Own Market</h3>
+                    <p className="text-sm text-muted-foreground text-center">
+                      Set your event, choose fixed or dynamic odds, and invite players!
+                    </p>
+                  </Card>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          <div className="mt-16 max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-white/10 rounded-xl p-8 shadow-neon-glow">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold mb-4 text-white">Create Your Own Betting Market</h2>
+              <p className="text-muted-foreground mb-6">
+                Have a unique event you want to bet on? Create a custom market in seconds and share it with friends.
+              </p>
+              <Button className="btn-gradient">
+                Create Market
+                <Plus className="ml-2 h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );
